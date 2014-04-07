@@ -16,12 +16,12 @@ apache_listen: 80
 
 apache_vhosts:
   site1:
-    vhost_docroot: '/var/www/test_site1/Build'
-    vhost_name: 'perch-vagrant.dev'
+    vhost_docroot: '/var/www/vhosts/inn-spiratie.nl/Build'
+    vhost_name: 'inn-spiratie.dev'
     vhost_options: 'All'
 
 mysql_db:
   db_site1:
-    db_name: 'perch_sql'
-    db_user: 'perch_sql'
+    db_name: 'innspiratie_sql'
+    db_user: 'innspiratie_sql'
     db_password: 'vagrant'

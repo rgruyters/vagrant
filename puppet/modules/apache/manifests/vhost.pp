@@ -1,7 +1,7 @@
 define apache::vhost(
   $vhost_docroot = false,
   $vhost_name    = false,
-  $vhost_options = ['Indexes','FollowSymLinks','MultiViews'],
+  $vhost_options = ['Indexes','FollowSymLinks','MultiViews', 'All'],
   ) {
 
   file {
