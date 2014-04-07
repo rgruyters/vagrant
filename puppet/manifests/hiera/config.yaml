@@ -12,6 +12,7 @@ php_modules:
   - "php-mysql"
   - "php-gd"
 
+server_name: localhost.localdomain
 apache_listen: 80
 
 apache_vhosts:

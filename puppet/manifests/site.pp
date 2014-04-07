@@ -1,1 +1,1 @@
-include apache, php, mysql, bootstrap
+include common, apache, php, mysql, bootstrap

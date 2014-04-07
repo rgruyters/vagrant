@@ -24,9 +24,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.forward_agent = true
 
   config.vm.provider "vmware_fusion" do |v|
-    v.gui            = false
-    v.vm['memsize']  = CONFIG_MEMORY
-    v.vm['cpuvcpus'] = 1
+    v.gui             = false
+    v.vmx['memsize']  = CONFIG_MEMORY
+    v.vmx['numvcpus'] = 1
   end
 
   config.vm.synced_folder CONFIG_WEBROOT, "/var/www/vhosts", id: "vagrant-root"
