@@ -13,16 +13,25 @@ php_modules:
   - "php-gd"
 
 server_name: localhost.localdomain
-apache_listen: 80
+apache_listen: 8888
+nginx_listen: 80
 
 apache_vhosts:
   site1:
     vhost_docroot: '/var/www/vhosts/inn-spiratie.nl/Build'
-    vhost_name: 'inn-spiratie.dev'
+    vhost_name: 'inn-spiratie.eoms'
+    vhost_options: 'All'
+  site2:
+    vhost_docroot: '/var/www/vhosts/posbankloop.nl/Build'
+    vhost_name: 'posbankloop.eoms'
     vhost_options: 'All'
 
 mysql_db:
   db_site1:
     db_name: 'innspiratie_sql'
     db_user: 'innspiratie_sql'
+    db_password: 'vagrant'
+  db_site2:
+    db_name: 'posbankloop_sql'
+    db_user: 'posbankloop_sql'
     db_password: 'vagrant'

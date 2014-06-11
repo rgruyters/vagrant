@@ -1,1 +1,2 @@
-# Kiss the Sky development template
+# Vagrant
+Vagrant environment

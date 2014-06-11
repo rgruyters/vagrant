@@ -1,13 +1,7 @@
 class apache (
   $apache_listen = hiera('apache_listen'),
   $server_name   = hiera('server_name'),
-  ) {
-
-  firewall { '100 allow http and https access':
-    port   => [80, 443],
-    proto  => tcp,
-    action => accept,
-  }
+) {
 
   package { "httpd":
     ensure => present,
@@ -30,4 +24,10 @@ class apache (
     require => Package["httpd"],
   }
 
+  file {'/etc/httpd/conf.d/vhosts':
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => "0755"
+  }
 }
