@@ -1,5 +1,5 @@
 - name: Install Mysql package
-  yum: name={{ item }} state=present
+  yum: enablerepo=remi name={{ item }} state=present
   with_items:
     - mysql-server
     - MySQL-python
@@ -26,9 +26,9 @@
     - mysql
 
 - name: Import databases into MySQL
-  mysql_db: name={{ item.dbname }} state=import target=/vagrant/provisioning/roles/mysql/files/{{ item.dbname }}.sql.gz
+  mysql_db: name={{ item.dbname }} state=import target={{ item.file }}
   with_items: mysql
-  when: mysql_copy is defined and mysql is defined
+  when: mysql is defined
   tags:
     - mysql
 

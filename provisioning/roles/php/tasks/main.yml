@@ -1,5 +1,5 @@
-- name: Install php-fpm and deps 
-  yum: name={{ item }} state=present
+- name: Install PHP from Remi repo
+  yum: enablerepo=remi name={{ item }} state=present
   with_items:
     - php
     - php-cli

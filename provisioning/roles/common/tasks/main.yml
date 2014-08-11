@@ -1,8 +1,8 @@
-- name: Create the repository for EPEL
-  copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo
+- name: Install EPEL repo
+  yum: name=http://ftp.nluug.nl/pub/os/Linux/distr/fedora-epel/6/i386/epel-release-6-8.noarch.rpm state=present
 
-- name: Create the GPG key for EPEL
-  copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg
+- name: Install REMI repo
+  yum: name=http://rpms.famillecollet.com/enterprise/remi-release-6.rpm state=present
 
 - name: test to see if selinux is running
   command: getenforce
