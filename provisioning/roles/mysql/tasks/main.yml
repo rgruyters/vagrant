@@ -15,18 +15,12 @@
   mysql_db: name={{ item.dbname }} encoding=utf8 state=present
   with_items: mysql
   when: mysql is defined
+  notify: import databases
   tags:
     - mysql
 
 - name: Create users in MySQL
   mysql_user: name={{ item.user }} password={{ item.passwd }} priv={{ item.dbname }}.*:ALL state=present
-  with_items: mysql
-  when: mysql is defined
-  tags:
-    - mysql
-
-- name: Import databases into MySQL
-  mysql_db: name={{ item.dbname }} state=import target={{ item.file }}
   with_items: mysql
   when: mysql is defined
   tags:

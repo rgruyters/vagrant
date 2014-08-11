@@ -1,0 +1,5 @@
+- name: import databases
+  mysql_db: name={{ item.dbname }} state=import target={{ item.file }}
+  with_items: mysql
+  when: mysql is defined
+
