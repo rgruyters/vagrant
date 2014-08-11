@@ -1,2 +1,2 @@
 # Vagrant
-Vagrant environment
+Public available Vagrant environment that I use for testing
