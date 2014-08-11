@@ -1,0 +1,11 @@
+proxy_port: 8880
+
+vhosts:
+  - host: host.dev
+    root: /var/www/vhosts/host.dev/Build
+
+# mysql:
+#   - dbname:
+#     user:
+#     passwd:
+

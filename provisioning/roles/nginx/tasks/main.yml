@@ -1,0 +1,19 @@
+- name: Install NGINX
+  yum: name=nginx state=installed
+  tags: nginx
+
+- name: Start NGINX
+  service: name=nginx state=started enabled=true
+  tags: nginx
+  register: nginx
+
+- name: Copy Virtual Hosts
+  template: src=vhost.conf.j2 dest=/etc/nginx/conf.d/{{ item.host }}.conf
+  with_items: vhosts
+  notify: restart nginx
+
+- name: insert iptables rule for NGINX
+  lineinfile: dest=/etc/sysconfig/iptables create=yes state=present regexp="http" insertafter="^:OUTPUT "
+              line="-A INPUT -p tcp  --dport http -j  ACCEPT"
+  notify: restart iptables
+

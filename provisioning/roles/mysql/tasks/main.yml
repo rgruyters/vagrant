@@ -1,0 +1,34 @@
+- name: Install Mysql package
+  yum: name={{ item }} state=present
+  with_items:
+    - mysql-server
+    - MySQL-python
+  tags:
+    - mysql
+
+- name: Start MySQL
+  service: name=mysqld state=running enabled=true
+  tags:
+    - mysql
+
+- name: Create databases in MySQL
+  mysql_db: name={{ item.dbname }} encoding=utf8 state=present
+  with_items: mysql
+  when: mysql is defined
+  tags:
+    - mysql
+
+- name: Create users in MySQL
+  mysql_user: name={{ item.user }} password={{ item.passwd }} priv={{ item.dbname }}.*:ALL state=present
+  with_items: mysql
+  when: mysql is defined
+  tags:
+    - mysql
+
+- name: Import databases into MySQL
+  mysql_db: name={{ item.dbname }} state=import target=/vagrant/provisioning/roles/mysql/files/{{ item.dbname }}.sql.gz
+  with_items: mysql
+  when: mysql_copy is defined and mysql is defined
+  tags:
+    - mysql
+

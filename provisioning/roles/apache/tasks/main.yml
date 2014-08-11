@@ -1,0 +1,30 @@
+- name: Install Apache
+  yum: name=httpd state=present
+  tags: apache
+
+- name: Copy Apache configuration when NGINX is installed
+  template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+  when: nginx is defined
+  notify: restart apache
+  tags: apache
+
+- name: Create each Virtual Host template
+  template: src=vhost.conf.j2 dest=/etc/httpd/conf.d/{{ item.host }}.conf
+  with_items: vhosts
+  notify: restart apache
+  tags: apache
+
+- name: Start Apache
+  service: name=httpd state=started enabled=true
+  tags: apache
+
+- name: insert iptables rule for httpd when NGINX is used
+  lineinfile: dest=/etc/sysconfig/iptables create=yes state=present regexp="{{ proxy_port }}" insertafter="^:OUTPUT "
+              line="-A INPUT -p tcp  --dport {{ proxy_port }} -j  ACCEPT"
+  when: nginx is defined
+  notify: restart iptables
+
+- name: Configure SELinux to allow httpd to connect to remote database
+  seboolean: name=httpd_can_network_connect_db state=true persistent=yes 
+  when: sestatus.rc != 0
+

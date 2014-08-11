@@ -1,5 +1,3 @@
 # Defaults
 .DS_Store
 .vagrant
-.sass-cache
-puppet/files

@@ -1,0 +1,16 @@
+<VirtualHost *:{% if nginx %}{{ proxy_port }}{% else %}80{% endif %}>
+  ServerName {{ item.host }}
+  DocumentRoot {{ item.root }}
+
+  <Directory {{ item.root }}>
+    Options FollowSymLinks
+    AllowOverride All
+    Order allow,deny
+    allow from all
+  </Directory>
+
+  ErrorLog /var/log/httpd/{{ item.host }}_error.log
+  LogLevel warn
+  CustomLog /var/log/httpd/{{ item.host }}_access.log combined
+</VirtualHost>
+

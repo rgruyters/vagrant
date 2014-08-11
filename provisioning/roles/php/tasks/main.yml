@@ -1,0 +1,13 @@
+- name: Install php-fpm and deps 
+  yum: name={{ item }} state=present
+  with_items:
+    - php
+    - php-cli
+    - php-mbstring
+    - php-mysql
+    - php-xml
+    - php-gd
+  notify: restart apache
+  tags:
+    - php
+
